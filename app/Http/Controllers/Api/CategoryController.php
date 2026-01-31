@@ -21,23 +21,33 @@ class CategoryController extends Controller
     // 🔹 Store category
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:100|unique:categories,code',
+            'code' => 'nullable|string|max:100',
         ]);
 
-        $category = Category::create([
-            'name'       => $request->name,
-            'code'       => $request->code,
-            'created_by' => auth()->id(),
-        ]);
+        try {
+            $category = Category::create([
+                'name'       => trim($validated['name']),
+                'code'       => $validated['code'] ?? null,
+                'created_by' => auth()->id(),
+            ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Category created successfully',
-            'data' => $category
-        ], 201);
+            return response()->json([
+                'status'  => true,
+                'message' => 'Category created successfully',
+                'data'    => $category
+            ], 201);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Failed to create category',
+            ], 500);
+        }
     }
+
 
     // 🔹 Show single category
     public function show($id)
