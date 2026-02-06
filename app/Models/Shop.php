@@ -16,4 +16,8 @@ class Shop extends Model
         'created_by',
         'updated_by',
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

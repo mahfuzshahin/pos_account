@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shop;
+use App\Http\Resources\ShopResource;
 class ShopController extends Controller
 {
     public function index()
     {
+        $shops = Shop::with('category')->latest()->get();
         return response()->json([
             'status' => true,
-            'data' => Shop::latest()->get()
+            'data' => ShopResource::collection($shops)
         ]);
     }
 

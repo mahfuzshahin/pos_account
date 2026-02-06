@@ -20,4 +20,8 @@ class Account extends Model
         'created_by',
         'updated_by',
     ];
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
+    }
 }
