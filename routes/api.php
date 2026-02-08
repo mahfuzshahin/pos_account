@@ -27,6 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('shops', ShopController::class);
-    Route::get('/account', [AccountController::class, 'account']);
+    Route::get('/account/{shop_id}', [AccountController::class, 'account']);
     Route::post('/account', [AccountController::class, 'store_account']);
 });

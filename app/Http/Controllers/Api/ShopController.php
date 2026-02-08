@@ -10,7 +10,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::with('category')->latest()->get();
+        $shops = Shop::with('category')->latest()->where('user_id', auth()->id())->get();
         return response()->json([
             'status' => true,
             'data' => ShopResource::collection($shops)
