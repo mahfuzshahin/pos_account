@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost','http://localhost:4200','http://localhost/emp_directory/','https://posaccount.mahfuzshahin.com','http://192.168.0.106:4200/','http://172.20.240.1:4200/'],
 
     'allowed_origins_patterns' => [],
 

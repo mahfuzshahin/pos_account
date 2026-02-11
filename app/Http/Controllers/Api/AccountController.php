@@ -9,13 +9,19 @@ use App\Http\Resources\AccountResource;
 class AccountController extends Controller
 {
     //
-    public function account($shop_id)
+    public function account(Request $request)
     {
-        $accounts = Account::with('shop')->latest()->where('shop_id', $shop_id)->get();
+        $shop_id = $request->query('shop_id');
 
-         return response()->json([
+        $query = Account::with('shop')->latest();
+
+        if ($shop_id) {
+            $query->where('shop_id', $shop_id);
+        }
+
+        return response()->json([
             'status' => true,
-            'data' => AccountResource::collection($accounts)
+            'data'   => AccountResource::collection($query->get())
         ]);
     }
 
