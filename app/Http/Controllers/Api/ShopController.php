@@ -25,7 +25,7 @@ class ShopController extends Controller
             $shop = Shop::create([
                 'name'       => trim($request->name),
                 'address'    => $request->address,
-                'user_id'    => $request->user_id,
+                'user_id'    => auth()->id(),
                 'category_id'=> $request->category_id,
                 'created_by' => auth()->id(),
             ]);
@@ -37,7 +37,7 @@ class ShopController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-
+            dd($e);
             return response()->json([
                 'status'  => false,
                 'message' => 'Failed to create shop',
